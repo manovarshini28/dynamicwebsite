@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff77ad">
+<title>Manovarshini | Little World on the Web</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap">
+<style>
+:root{--bg:#fff0f6;--card:#ffffffcc;--ink:#4a2c3d;--soft:#8a5a74;--pink:#ff77ad;--deep:#e0467f;--lav:#e9d9ff;--line:#ffc2da;--blob:#ffd1e4;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1620;--card:#3b2230cc;--ink:#ffe9f2;--soft:#e7b6cc;--line:#6a3a50;--lav:#4a3566;--blob:#5a2a42;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#2a1620;--card:#3b2230cc;--ink:#ffe9f2;--soft:#e7b6cc;--line:#6a3a50;--lav:#4a3566;--blob:#5a2a42;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:"Quicksand",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:clamp(14px,1.2vw + 10px,18px);line-height:1.45;
+background-image:radial-gradient(circle at 10% 8%,var(--blob) 0,transparent 35%),radial-gradient(circle at 92% 92%,var(--lav) 0,transparent 38%)}
+.app{height:100%;display:flex;flex-direction:column}
+#bar{position:fixed;left:0;top:0;height:4px;width:0;background:linear-gradient(90deg,var(--pink),#b58cff);z-index:20;transition:width .3s;border-radius:0 4px 4px 0}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 14px 6px;flex:none;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--deep)}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+nav::-webkit-scrollbar{display:none}
+nav button,#theme{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:4px 11px;font:inherit;font-size:.85em;cursor:pointer;transition:transform .2s,background .2s}
+nav button:hover,#theme:hover{transform:translateY(-2px) scale(1.05)}
+nav button.on{background:var(--pink);border-color:var(--pink);color:#fff}
+main{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+main::-webkit-scrollbar{display:none}
+section{flex:none;width:100%;height:100%;scroll-snap-align:start;padding:10px max(16px,calc((100% - 760px)/2)) 22px;display:flex;flex-direction:column;gap:12px;position:relative;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+section::-webkit-scrollbar{display:none}
+section>*{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+section.in>*{opacity:1;transform:none}
+section.in>*:nth-child(2){transition-delay:.08s}section.in>*:nth-child(3){transition-delay:.16s}section.in>*:nth-child(4){transition-delay:.24s}section.in>*:nth-child(5){transition-delay:.32s}section.in>*:nth-child(6){transition-delay:.4s}section.in>*:nth-child(7){transition-delay:.48s}
+.tag{display:inline-block;align-self:flex-start;background:var(--lav);border-radius:99px;padding:2px 10px;font-size:.78em;letter-spacing:.06em}
+h1{font-family:"Pacifico",cursive;font-weight:400;color:var(--deep);font-size:2.7em;line-height:1.15}
+h2{font-size:1.75em;line-height:1.2}
+h2 em{font-family:"Pacifico",cursive;font-style:normal;color:var(--deep);font-weight:400}
+h3{font-size:1em;color:var(--deep)}
+p,small{color:var(--soft)}
+.sub{font-weight:700}
+#type::after{content:"|";margin-left:2px;color:var(--deep);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:99px;padding:9px 16px;font:inherit;font-weight:700;font-size:.9em;background:var(--pink);color:#fff;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 6px 14px #e0467f55}
+.btn.alt{background:var(--card);color:var(--deep);border:1.5px solid var(--line)}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:11px 13px;transition:transform .25s,box-shadow .25s;transform-style:preserve-3d}
+.card:hover{box-shadow:0 10px 24px #e0467f33}
+.card p{font-size:.88em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.skills{grid-template-columns:repeat(3,1fr)}
+.skills .card{text-align:center;cursor:pointer}
+.skills .ic{font-size:1.4em;color:var(--deep);font-weight:700}
+.lvl{height:6px;border-radius:9px;background:var(--lav);margin-top:6px;overflow:hidden}
+.lvl i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),#b58cff);border-radius:9px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.in .lvl i{width:var(--w)}
+.filters{display:flex;gap:6px}
+.filters button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:3px 12px;font:inherit;font-size:.82em;cursor:pointer}
+.filters button.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.proj.hide{display:none}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.chips span{background:var(--lav);border-radius:99px;padding:1px 8px;font-size:.72em}
+.scene{min-height:150px;flex:1;position:relative;border:1.5px dashed var(--line);border-radius:18px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;user-select:none}
+.lap{font-size:3.6em;line-height:1;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-4deg)}}
+.face{color:var(--deep);font-weight:700}
+.dream{margin-top:4px;background:var(--lav);border-radius:99px;padding:2px 12px;font-size:.8em;font-weight:700}
+.e{position:absolute;font-size:1.4em;opacity:.85;animation:fl 5s ease-in-out infinite}
+.e:nth-child(2n){animation-duration:6.5s;animation-delay:-2s}.e:nth-child(3n){animation-duration:4s;animation-delay:-1s}
+@keyframes fl{50%{transform:translateY(-14px) rotate(12deg)}}
+.e1{left:8%;top:10%}.e2{right:10%;top:8%}.e3{left:6%;bottom:12%}.e4{right:8%;bottom:10%}.e5{left:30%;top:6%}.e6{right:28%;bottom:6%}.e7{left:24%;bottom:8%}.e8{right:24%;top:10%}
+.float{position:absolute;right:14px;top:6px;font-size:1.2em;opacity:.8;letter-spacing:2px;animation:fl 4s ease-in-out infinite}
+.note{font-size:.85em;text-align:center}
+.count{align-self:flex-end;font-size:.75em;color:var(--soft);margin-top:auto}
+form{display:flex;flex-direction:column;gap:8px}
+input,textarea{font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:8px 11px;width:100%;outline:none;transition:border-color .2s}
+input:focus,textarea:focus{border-color:var(--pink)}
+textarea{resize:none;height:84px}
+.sp{position:fixed;pointer-events:none;z-index:30;font-size:16px;animation:pop .9s ease-out forwards}
+@keyframes pop{to{transform:translate(var(--dx),var(--dy)) scale(.4) rotate(120deg);opacity:0}}
+footer{flex:none;text-align:center;font-size:.7em;padding:2px 0 4px;letter-spacing:.2em}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}section>*{opacity:1;transform:none}.lvl i{width:var(--w)}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div class="app">
+<header>
+  <div class="brand">🎀 Manovarshini’s portfolio</div>
+  <button id="theme" aria-label="Toggle theme">🌙</button>
+  <nav id="nav"></nav>
+</header>
+
+<main id="main">
+<section id="home" class="in">
+  <span class="tag">✦ tiny steps, big dreams ✦</span>
+  <div class="float">🎀⭐🧸</div>
+  <div>
+    <small>HELLO, I’M</small>
+    <h1>Manovarshini M.</h1>
+    <div class="sub"><span id="type"></span></div>
+  </div>
+  <p>2nd-year CSE student at Sri Krishna College of Engineering and Technology, building my foundation to become a Data Analyst. Passionate about learning SQL, Python, and turning data into meaningful insights.</p>
+  <div class="btns">
+    <button class="btn" data-go="3">Explore my work ↗</button>
+    <button class="btn alt" data-go="1">About me ☁</button>
+  </div>
+  <div class="scene" id="scene">
+    <span class="e e1">🎀</span><span class="e e2">⭐</span><span class="e e3">🧸</span><span class="e e4">🌼</span>
+    <span class="e e5">✧</span><span class="e e6">✿</span><span class="e e7">🫧</span><span class="e e8">🦋</span>
+    <div class="lap">💻</div>
+    <div class="face">૮ ˶ᵔ ᵕ ᵔ˶ ა</div>
+    <div class="dream" id="quote">dream it · do it ♡</div>
+  </div>
+  <span class="count">01 / 05 · tap the scene ✨</span>
+</section>
+
+<section id="about">
+  <div class="float">🌷🦋☁️</div>
+  <h2>A little <em>about me</em></h2>
+  <small>Curious mind, creative heart, and a whole lot left to learn.</small>
+  <div class="card"><h3>🌸 Hi, I’m Mano!</h3><p>I’m a second-year B.E. CSE student at SKCET. I enjoy exploring how technology works and turning ideas into something real. Right now I’m growing my skills in programming, web design, and data analysis — one practice session at a time.</p></div>
+  <div class="grid">
+    <div class="card"><h3>🎓 Currently</h3><p>B.E. Computer Science<br>SKCET · 2025–2029</p></div>
+    <div class="card"><h3>🔎 Curious about</h3><p>Data, patterns, technology, and creative problem-solving.</p></div>
+    <div class="card"><h3>🌱 My goal</h3><p>Become a skilled data analyst and keep building useful things.</p></div>
+    <div class="card"><h3>☕ My motto</h3><p>Small progress is still progress. Keep showing up!</p></div>
+  </div>
+  <span class="count">02 / 05</span>
+</section>
+
+<section id="skills">
+  <div class="float">🪄🍓</div>
+  <small>MY LITTLE TOOLBOX</small>
+  <h2>Learning, one <em>skill</em> at a time</h2>
+  <small>Tap a card to see what I’m up to with it.</small>
+  <div class="grid skills">
+    <div class="card" data-m="Learning programming basics"><div class="ic">Ｃ</div><h3>C</h3><p>Programming basics</p><div class="lvl"><i style="--w:70%"></i></div></div>
+    <div class="card" data-m="Practising logic & problem solving"><div class="ic">＋</div><h3>C++</h3><p>Logic & problem solving</p><div class="lvl"><i style="--w:60%"></i></div></div>
+    <div class="card" data-m="Exploring object-oriented ideas"><div class="ic">☕</div><h3>Java</h3><p>Object-oriented basics</p><div class="lvl"><i style="--w:55%"></i></div></div>
+    <div class="card" data-m="Querying and working with data"><div class="ic">▤</div><h3>SQL</h3><p>Working with data</p><div class="lvl"><i style="--w:65%"></i></div></div>
+    <div class="card" data-m="Structuring web pages"><div class="ic">&lt;&gt;</div><h3>HTML</h3><p>Structuring web pages</p><div class="lvl"><i style="--w:80%"></i></div></div>
+    <div class="card" data-m="Making things responsive and pretty"><div class="ic">✧</div><h3>CSS</h3><p>Responsive styling</p><div class="lvl"><i style="--w:75%"></i></div></div>
+  </div>
+  <p class="note" id="skillnote">🌱 Next up: Excel, data visualisation, and more hands-on projects!</p>
+  <span class="count">03 / 05</span>
+</section>
+
+<section id="projects">
+  <div class="float">🪩🍒</div>
+  <small>IDEAS TURNING INTO THINGS</small>
+  <h2>My tiny <em>project shelf</em></h2>
+  <div class="filters" id="filters"><button class="on" data-f="all">All</button><button data-f="web">Web</button><button data-f="social">Social good</button></div>
+  <div class="card proj" data-c="web"><small>💻 WEB DESIGN · HTML + CSS</small><h3>My Portfolio Website</h3><p>A responsive personal website with colourful slides, playful decorations, and a little intro to my learning journey.</p><div class="chips"><span>HTML</span><span>CSS</span><span>Responsive</span></div></div>
+  <div class="card proj" data-c="social"><small>🚁 HACKATHON · AI FOR SOCIAL GOOD</small><h3>Disaster Relief Concept</h3><p>A hackathon concept exploring resource allocation, pet-friendly shelters, and drone-assisted delivery during emergencies.</p><div class="chips"><span>Social Good</span><span>Data</span><span>Teamwork</span></div></div>
+  <p class="note">More projects coming soon… the idea jar is never empty! 🫙</p>
+  <span class="count">04 / 05</span>
+</section>
+
+<section id="contact">
+  <div class="float">💌🎀🌟</div>
+  <small>LET’S SAY HELLO</small>
+  <h2>Have a lovely <em>idea?</em></h2>
+  <p>I’m open to learning opportunities, internships, collaborations, and meeting people who love building and learning as much as I do.</p>
+  <form id="form">
+    <input id="nm" placeholder="Your name" required>
+    <textarea id="msg" placeholder="Write a little note…" required></textarea>
+    <div class="btns"><button class="btn" type="submit">Send me a little email 💌</button></div>
+  </form>
+  <span class="count">05 / 05</span>
+</section>
+</main>
+<footer>🎀 ✿ ✧ 🌷 ✧ ✿ 🎀</footer>
+</div>
+
+<script>
+(function(){
+  var names=["Home ✿","About ☁","Skills ✧","Projects 🧸","Contact 💌"];
+  var main=document.getElementById("main"),nav=document.getElementById("nav"),secs=document.querySelectorAll("section"),bar=document.getElementById("bar");
+  names.forEach(function(n,i){var b=document.createElement("button");b.textContent=n;b.onclick=function(){go(i)};nav.appendChild(b)});
+  function go(i){main.scrollTo({left:i*main.clientWidth,behavior:"smooth"})}
+  document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){go(+b.dataset.go)}});
+  function mark(){
+    var i=Math.round(main.scrollLeft/main.clientWidth);
+    Array.prototype.forEach.call(nav.children,function(b,k){b.classList.toggle("on",k===i)});
+    if(secs[i])secs[i].classList.add("in");
+    bar.style.width=((i+1)/5*100)+"%";
+  }
+  main.addEventListener("scroll",function(){clearTimeout(main._t);main._t=setTimeout(mark,40)});
+  document.addEventListener("keydown",function(e){
+    if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    var i=Math.round(main.scrollLeft/main.clientWidth);
+    if(e.key==="ArrowRight")go(Math.min(4,i+1));if(e.key==="ArrowLeft")go(Math.max(0,i-1));
+  });
+  mark();
+
+  /* typing effect */
+  var roles=["CSE student ✿","aspiring data analyst ✿","SQL & Python learner ✿","curious builder ✿"],ri=0,ci=0,del=false,t=document.getElementById("type");
+  (function tick(){
+    var w=roles[ri];ci+=del?-1:1;t.textContent=w.slice(0,ci);
+    var d=del?40:90;
+    if(!del&&ci===w.length){del=true;d=1400}else if(del&&ci===0){del=false;ri=(ri+1)%roles.length;d=300}
+    setTimeout(tick,d);
+  })();
+
+  /* sparkles */
+  var em=["✨","🎀","💖","⭐","🌸","🦋"];
+  function spark(x,y,n){
+    for(var k=0;k<n;k++){
+      var s=document.createElement("span");s.className="sp";s.textContent=em[Math.floor(Math.random()*em.length)];
+      s.style.left=x+"px";s.style.top=y+"px";
+      s.style.setProperty("--dx",(Math.random()*120-60)+"px");s.style.setProperty("--dy",(Math.random()*-110-10)+"px");
+      document.body.appendChild(s);setTimeout(function(el){el.remove()},900,s);
+    }
+  }
+  var last=0;
+  document.addEventListener("pointermove",function(e){var n=Date.now();if(n-last>90&&e.pointerType==="mouse"){last=n;spark(e.clientX,e.clientY,1)}});
+  document.addEventListener("click",function(e){spark(e.clientX,e.clientY,6)});
+
+  /* quote rotator */
+  var qs=["dream it · do it ♡","small steps count ✿","keep showing up ✧","you’ve got this ☁","learn · build · repeat 🌱"],qi=0;
+  document.getElementById("scene").onclick=function(){qi=(qi+1)%qs.length;document.getElementById("quote").textContent=qs[qi]};
+
+  /* skill card messages */
+  document.querySelectorAll(".skills .card").forEach(function(c){
+    c.onclick=function(){document.getElementById("skillnote").textContent="✨ "+c.dataset.m+"!"};
+  });
+
+  /* 3D tilt */
+  document.querySelectorAll(".card").forEach(function(c){
+    c.addEventListener("pointermove",function(e){
+      if(e.pointerType!=="mouse")return;
+      var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform="perspective(600px) rotateY("+(x*8)+"deg) rotateX("+(-y*8)+"deg) translateY(-3px)";
+    });
+    c.addEventListener("pointerleave",function(){c.style.transform=""});
+  });
+
+  /* project filters */
+  var fb=document.querySelectorAll("#filters button");
+  fb.forEach(function(b){b.onclick=function(){
+    fb.forEach(function(x){x.classList.toggle("on",x===b)});
+    document.querySelectorAll(".proj").forEach(function(p){p.classList.toggle("hide",b.dataset.f!=="all"&&p.dataset.c!==b.dataset.f)});
+  }});
+
+  /* theme toggle */
+  var root=document.documentElement,tb=document.getElementById("theme");
+  function setTheme(m){root.setAttribute("data-theme",m);tb.textContent=m==="dark"?"☀️":"🌙";try{localStorage.setItem("mano-theme",m)}catch(e){}}
+  var saved=null;try{saved=localStorage.getItem("mano-theme")}catch(e){}
+  setTheme(saved||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+  tb.onclick=function(){setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark")};
+
+  /* contact form → opens email app */
+  document.getElementById("form").onsubmit=function(e){
+    e.preventDefault();
+    var n=document.getElementById("nm").value,m=document.getElementById("msg").value;
+    var r=document.querySelector(".btn[type=submit]").getBoundingClientRect();
+    spark(r.left+r.width/2,r.top,14);
+    location.href="mailto:?subject="+encodeURIComponent("Hello Manovarshini, from "+n)+"&body="+encodeURIComponent(m);
+  };
+})();
+</script>
+</body>
+</html>
